@@ -16,7 +16,7 @@ class OrderController extends Controller
             $orders = Order::filter($filter);
 
             if ($currentUser->role !== 'admin') {
-                $orders = Order::filter($filter)->where('created_by', $currentUser->id)->with(['order_items.nomenclature.brand', 'document_status']);
+                $orders = $orders->where('created_by', $currentUser->id)->with(['order_items.nomenclature.brand', 'document_status']);
             };
 
             $orders = $orders->get();
@@ -57,7 +57,7 @@ class OrderController extends Controller
             return response(['message' => $e->getMessage()], 500);
         }
 
-        return response(['message' => 'ok'], 200);
+        return response(['message' => 'ok', 'id' => $order->id], 200);
     }
 
     public function update(OrderRequest $request, $id)

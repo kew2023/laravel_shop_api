@@ -11,6 +11,6 @@ class NomenclatureController extends Controller
     public function index(NomenclatureFilter $filter)
     {
         $nomenclature = Nomenclature::with('brand')->filter($filter)->get();
-        return response(["message" => "ok", "data" => $nomenclature]);
+        return response($nomenclature, 200);
     }
 }

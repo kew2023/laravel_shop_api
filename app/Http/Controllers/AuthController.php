@@ -17,7 +17,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', ['except' => ['login', 'logout', 'refresh']]);
     }
 
     /**
@@ -55,6 +55,10 @@ class AuthController extends Controller
      */
     public function logout()
     {
+        if (!auth()->check()) {
+            return response()->json(['message' => 'User is not authenticated'], 401);
+        }
+
         auth()->logout();
 
         return response()->json(['message' => 'Successfully logged out']);

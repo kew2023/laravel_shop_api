@@ -40,7 +40,7 @@ class BasketController extends Controller
         }
         //Basket::upsert($data, ['created_by', 'nomenclature_guid'], ['amount']);
 
-        return response(['message' => 'ok', "basket" => $currentUser->basket], 200);
+        return response(['message' => 'ok'], 200);
     }
 
     public function delete(BasketRequest $request)
@@ -53,7 +53,7 @@ class BasketController extends Controller
         } catch (\Exception $e) {
             return response(['message' => $e->getMessage()],  500);
         }
-        return response(['message' => 'ok', "basket" => $currentUser->basket], 200);
+        return response(['message' => 'ok'], 200);
     }
 
     public function clear(BasketRequest $request)
